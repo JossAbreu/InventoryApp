@@ -28,7 +28,7 @@ export default function ItemsScreen({ navigation }) {
           m="2"
           fontSize="3xl"
         >
-          <Text textAlign="center">Items</Text>
+          <Text textAlign="center">Iteeems</Text>
           
         </Heading>
         </Center>
