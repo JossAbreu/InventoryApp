@@ -36,7 +36,7 @@ export default function LoginScreen() {
           fontWeight="800"
           
         >
-          Inventory Managament pruebaw
+          Inventory Managament prueba 2
         </Heading>
         <Heading
           style={{color:theme.color}}
