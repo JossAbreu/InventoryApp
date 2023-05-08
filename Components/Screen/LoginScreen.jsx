@@ -36,7 +36,7 @@ export default function LoginScreen() {
           fontWeight="800"
           
         >
-          Inventory Managament DE DARIKANDEL 
+          Inventory Managament
         </Heading>
         <Heading
           style={{color:theme.color}}
