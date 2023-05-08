@@ -1,74 +1,48 @@
 
-import React, { useImperativeHandle } from "react";
-import { Alert, Image,TouchableOpacity,useState } from 'react-native';
+import React from "react";
+import { Image } from 'react-native';
 import { AntDesign } from "@expo/vector-icons";
-import {  Text,Fab, Heading,IconButton , View,Center, Input,Icon,Box,onOpen,Actionsheet,isOpen,onClose,useDisclose, VStack, Spacer, ZStack, Divider,  } from "native-base";
+import { Container, Text,Fab, Heading,CheckIcon,IconButton , View,Center, NativeBaseProvider,Input,Icon,Box,Thumbnail,Button,onOpen,Actionsheet,isOpen,onClose,useDisclose, VStack, Spacer, ZStack, Flex } from "native-base";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import {styles} from '../../src/Styles/styles'
-import { Camera } from 'expo-camera';
-import {data} from '../../src/data/Tasks'
-import Prueba from './Prueba'
 
-import { useNavigation } from '@react-navigation/native';
-import NullItem from "./NullItem";
+export default function ItemsScreen({ navigation }) {
 
-export default function ItemsScreen() {
-  const navigation = useNavigation();
     const {
         isOpen,
         onOpen,
         onClose
       } = useDisclose();
 
-      
 
 
-
-      let Screen = null;
-
-
-      if (data.length === 0) {
-        Screen = <NullItem/>
-      }
-
-      else {
-        Screen = <Prueba/>
-      }
-    
 
     return (
-      //contenido principal
-      
+      //vontenido principal
       <View h="100%" w="100%">
-        
         <Center>
-          <Heading justifyContent="space-evenly" m="2" fontSize="3xl">
-            <Text textAlign="center">Items</Text>
-          </Heading>
-        </Center>
-
-        {/* // icono de camara */}
-
-        <Heading position="absolute" right={5}>
-          <IconButton
-            onPress={() =>
-              navigation.navigate("Camera", {
-                animationTypeForReplace: "push",
-              })
-            }
-            colorScheme="red"
-            _icon={{
-              as: Ionicons,
-              size: "8",
-              color: "black",
-              name: "barcode-outline",
-            }}
-          />
+        <Heading
+       
+          justifyContent="space-evenly"
+          m="2"
+          fontSize="3xl"
+        >
+          <Text textAlign="center">Iteeems</Text>
+          
         </Heading>
+        </Center>
+<Heading  position="absolute"
+            right={5}>
+                <IconButton colorScheme="red"  _icon={{
+        as: Ionicons,
+        size:"8",
+        color:"black",
+        name: "barcode-outline",
+      }} />
 
+</Heading>
         <Center>
-         
           <View m="1">
             <Input
               placeholder="Search Items "
@@ -97,28 +71,54 @@ export default function ItemsScreen() {
               }
             />
           </View>
-          <Divider m={1} />
         </Center>
-{/* //contenido principal de items */}
-        <View h="80%" w="100%">
-        <Box id="Contenido" flex={1}>{
-Screen
- }</Box>     
-        </View>
-  {/* /////////////////////////////       */}
-        <View  bg="amber.500" w="100%" alignItems="center">
+
+        <View h="85%" w="100%">
+          <Center>
+            <Box justifyContent="center" h="80%" w="80%">
+              <Center>
+                <View
+                  justifyContent="center"
+                  justifyItems="center"
+                  h="80%"
+                  w="80%"
+                >
+                  <Center>
+                    <Image
+                      shadow="2"
+                      source={require("../../assets/Image/box2.png")}
+                      style={{ width: 200, height: 200 }}
+                    />
+                  </Center>
+                </View>
+              </Center>
+              <Center>
+                <Text fontSize="lg" fontWeight="bold">
+                  It's empty here{" "}
+                </Text>
+                <Text fontWeight="semibold">
+                  add your first item by tapping the{" "}
+                  <Text fontSize="lg" color="error.900">
+                    "+"
+                  </Text>{" "}
+                </Text>
+              </Center>
+            </Box>
+          </Center>
+          <View w="100%" alignItems="center">
             <Fab
               onPress={onOpen}
+              position="relative"
               h="20"
               w="20"
-              
-              left="70%"
+              top={0.5}
+              left= {80}
               renderInPortal={false}
               shadow={8}
               bg="error.500"
               bottom={50}
               size="md"
-              icon={<Icon color="white" as={AntDesign} name="plus" size="5" />}
+              icon={<Icon color="white" as={AntDesign} name="plus" size="4" />}
             />
 
             <Actionsheet isOpen={isOpen} onClose={onClose}>
@@ -134,27 +134,13 @@ Screen
                     Add
                   </Text>
                 </Box>
-                <Actionsheet.Item
-                  onPress={() =>
-                    navigation.navigate("AddItem" )
-                  }
-                >
-                  Receive Items
-                </Actionsheet.Item>
+                <Actionsheet.Item>Add Items</Actionsheet.Item>
 
-                <Actionsheet.Item
-                  onPress={() => { 
-                
-                    setSelected(1);
-                  }}
-                
-                >Organize Items</Actionsheet.Item>
-                <Actionsheet.Item>Prepare Items</Actionsheet.Item>
+                <Actionsheet.Item>Add Folder</Actionsheet.Item>
               </Actionsheet.Content>
             </Actionsheet>
           </View>
-         
+        </View>
       </View>
-    
     );
 }
