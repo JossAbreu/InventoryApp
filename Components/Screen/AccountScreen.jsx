@@ -3,41 +3,56 @@ import * as React from 'react';
 import { View, Text, TouchableOpacity, TouchableOpacityBase, TouchableHighlight } from 'react-native';
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation } from '@react-navigation/native';
-
-  
+import { ThemeContext } from '../../src/Styles/ThemeContext'
+import { Switch } from '@rneui/themed';
 
 export default function AccountScreen({  }) {
+  const { theme, FuntionchangeTheme,isDarkMode,themeText } = React.useContext(ThemeContext);
+  
+
+
   const navigation = useNavigation();
     return (
-      <VStack space="2.5" mt="2" px="8">
-        <Stack h="30%" direction="column">
-          <Center>
-            <Box shadow={2} w="50%" h="85%" m="2">
+      <VStack style={{backgroundColor:theme.backgroundColor}} space="2.5"  px="8">
+       
+        
+          <Stack marginTop={6} p={2} justifyContent={"center"}  h="30%" direction="column"  >
+    <Stack justifyContent="space-between" alignItems="center" flexDirection="row" >
+    
+          <Heading  style={{color:theme.color}} fontSize="xl">{themeText}</Heading>
+              <Switch value={isDarkMode}  thumbColor={"red"} trackColor="#9e9e9e"  onValueChange={ FuntionchangeTheme} direction="end"  colorScheme="black"/>
+              
+              </Stack>
+              <Box m={0}  >
               <Center>
+            
+             
                 <Image
                   resizeMode="contain"
-                  width="100%"
-                  height="100%"
+                  width="75%"
+                  height="75%"
                   source={require("../../assets/Image/man.png")}
                   alt="Picture of User"
                   
                 />
+             
+          
+
+           
+              <Heading style={{color:theme.color}}  fontSize="xl">My Account</Heading>
               </Center>
             </Box>
-
-            <Box position="relative" >
-              <Heading mb="5" fontSize="2xl">My Account</Heading>
-            </Box>
-          </Center>
-        </Stack>
-        <Divider my="1" />
-        <Stack h="70%" mb="2.5" direction="column">
+            
+          </Stack>
+   
+        
+        <Stack h="70%" mb="5.5"  direction="column">
           <Box
             borderRadius="md"
             justifyContent="center"
             h="10%"
             w="100%"
-            bg="lightText"
+            bg="gray.400"
             shadow="2"
           >
             <TouchableOpacity>
@@ -63,7 +78,7 @@ export default function AccountScreen({  }) {
             justifyContent="center"
             h="10%"
             w="100%"
-            bg="lightText"
+            bg="gray.400"
             shadow={2}
           >
              <TouchableOpacity>
@@ -87,7 +102,7 @@ export default function AccountScreen({  }) {
             justifyContent="center"
             h="10%"
             w="100%"
-            bg="lightText"
+            bg="gray.400"
             shadow={2}
           >
              <TouchableOpacity>
@@ -111,7 +126,7 @@ export default function AccountScreen({  }) {
             justifyContent="center"
             h="10%"
             w="100%"
-            bg="lightText"
+            bg="gray.400"
             shadow={2}
           >
             <TouchableOpacity>
@@ -135,7 +150,7 @@ export default function AccountScreen({  }) {
             justifyContent="center"
             h="10%"
             w="100%"
-            bg="lightText"
+            bg="gray.400"
             shadow={2}
           >
             <TouchableOpacity>
@@ -159,7 +174,7 @@ export default function AccountScreen({  }) {
             justifyContent="center"
             h="10%"
             w="100%"
-            bg="lightText"
+            bg="gray.400"
             shadow={2}
           >
             <TouchableOpacity   onPress={() => navigation.navigate("Login")}>

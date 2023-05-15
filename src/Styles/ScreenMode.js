@@ -3,22 +3,25 @@ export const styles = StyleSheet.create({
   dark: {
     backgroundColor: "#222",
     color: "#fff",
-    inputBackgroundColor:  "#9e9e9e",
+    inputBackgroundColor:  "#ffffff",
     inputColor: {color:"#ffffff"},
-  
+    BoxBackgroundColor:  "red",
+    IconColorBox: "#ffffff",
+    elevation:8,
+   shadowColor: "#ffffff",
+   shadowRadius: "20",
   },
   
     
   light: {
-    backgroundColor: "#fff",
+    backgroundColor: "#ffffff",
     color: "#222",
     inputBackgroundColor:  "#ffffff",
     inputColor: {color:"#ffffff"},
-
-
-    
-      
-
+    BoxBackgroundColor: "red",
+    IconColorBox: "#ffffff",
+    elevation:8,
+    shadowColor: "#000000",
   },
  
 });

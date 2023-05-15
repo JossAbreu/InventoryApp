@@ -1,22 +1,22 @@
-import React,{useState} from 'react';
+// ThemeContext.js
+import React, { useState, createContext } from 'react';
 import { styles } from './ScreenMode';
 
-export const ThemeContext = React.createContext();
+export const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-  const [isDarkMode, setIsDarkMode] = React.useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [themeText, setThemeText] = useState('Light Mode');
 
-
-
-  const FuntionchangeTheme = React.useCallback(() => {
+  const FuntionchangeTheme = () => {
     setIsDarkMode(!isDarkMode);
-   
-  }, [isDarkMode]);
+    setThemeText(isDarkMode ? 'Light Mode' : 'Dark Mode');
+  };
 
-  const theme = isDarkMode ? styles.dark :  styles.light;
+  const theme = isDarkMode ? styles.dark : styles.light;
 
   return (
-    <ThemeContext.Provider value={{ theme, FuntionchangeTheme,isDarkMode}}>
+    <ThemeContext.Provider value={{ theme, FuntionchangeTheme, isDarkMode, themeText }}>
       {children}
     </ThemeContext.Provider>
   );

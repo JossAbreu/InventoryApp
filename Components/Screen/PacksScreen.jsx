@@ -1,160 +1,195 @@
-
-import React, { useImperativeHandle } from "react";
-import { Alert, Image,TouchableOpacity,useState } from 'react-native';
+import React, { useImperativeHandle, useState } from "react";
+import { Alert, Image, TouchableOpacity } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
-import {  Text,Fab, Heading,IconButton , View,Center, Input,Icon,Box,onOpen,Actionsheet,isOpen,onClose,useDisclose, VStack, Spacer, ZStack, Divider,  } from "native-base";
+import {
+  Text,
+  Heading,
+  IconButton,
+  View,
+  Center,
+  Input,
+  Icon,
+  Box,
+  Button,
+  VStack,
+  Spacer,
+  ZStack,
+  Divider,
+  Stack,
+} from "native-base";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
-import { FontAwesome5 } from "@expo/vector-icons";
-import {styles} from '../../src/Styles/styles'
-import { Camera } from 'expo-camera';
-import {data} from '../../src/data/Tasks'
-import Prueba from './Prueba'
+import { FontAwesome5, MaterialCommunityIcons } from "@expo/vector-icons";
+import { styles } from "../../src/Styles/styles";
+import { Camera } from "expo-camera";
+import { data } from "../../src/data/Data";
+import CategoryScreen from "./CategoryScreen";
+import ItemScreen from "./ItemsScreen";
+import DataItemScreen from "./DataItemScreen";
+import { ThemeContext } from "../../src/Styles/ThemeContext";
 
-import { useNavigation } from '@react-navigation/native';
 import NullItem from "./NullItem";
+import { color } from "@rneui/base";
 
-export default function ItemsScreen() {
-  const navigation = useNavigation();
-    const {
-        isOpen,
-        onOpen,
-        onClose
-      } = useDisclose();
+export default function ItemsScreen({ navigation }) {
+  const { theme } = React.useContext(ThemeContext);
+  const [Vista, setVista] = useState("category");
+  const [showButton, setShowButton] = useState(false);
 
-      
+  const handleClick = () => {
+    setVista("category");
+    setShowButton(false);
+  };
 
+  let ComponentesVista;
 
+  if (Vista === "category") {
+    ComponentesVista = (
+      <CategoryScreen
+        setShowButton={setShowButton}
+        setVista={setVista}
+      />
+    );
+  } else if (Vista === "item") {
+    ComponentesVista = (
+      <ItemScreen
+        setShowButton={setShowButton}
+        setVista={setVista}
+      />
+    );
+  } else if (Vista === "dataItem") {
+    ComponentesVista = (
+      <DataItemScreen
+        setShowButton={setShowButton}
+        setVista={setVista}
+      />
+    );
+  } else {
+    ComponentesVista = (
+      <CategoryScreen
+        setShowButton={setShowButton}
+        setVista={setVista}
+      />
+    );
+  }
 
-      let Screen = null;
+  // Ignorar estas lineas de codigo
+  // let Screen = null;
 
+  // if (data.length === 0) {
+  //   Screen = <NullItem />;
+  // } else {
+  //   Screen = <CategoryScreen />;
+  // }
 
-      if (data.length === 0) {
-        Screen = <NullItem/>
-      }
+  return (
+    //contenido principal
 
-      else {
-        Screen = <Prueba/>
-      }
-    
+    <Stack style={{ backgroundColor: theme.backgroundColor }} h="100%" w="100%">
+      <Stack
+        h="20"
+        justifyContent="space-between"
+        alignItems="center"
+        direction="row"
+        p={5}
+        mt={8}
+        style={{ backgroundColor: theme.backgroundColor }}
+      >
+        <Heading style={{ color: theme.color }}>Pack</Heading>
+        <Button
+          p={0}
+          w={10}
+          h={10}
+          marginRight={0}
+          borderRadius={40}
+          bg="red.500"
+          color="white"
+          onPress={() => navigation.navigate("Account")}
+          rightIcon={
+            <MaterialCommunityIcons name="cog" size={30} color="white" />
+          }
+        ></Button>
+      </Stack>
 
-    return (
-      //contenido principal
-      
-      <View h="100%" w="100%">
-        
-        <Center>
-          <Heading justifyContent="space-evenly" m="2" fontSize="3xl">
-            <Text textAlign="center">Items</Text>
-          </Heading>
-        </Center>
+      {/* // icono de camara */}
 
-        {/* // icono de camara */}
-
-        <Heading position="absolute" right={5}>
-          <IconButton
-            onPress={() =>
-              navigation.navigate("Camera", {
-                animationTypeForReplace: "push",
-              })
+      <Stack
+        flexDirection={"row-reverse"}
+        w="100%"
+        h="5%"
+        justifyContent={"center"}
+        style={{
+          elevation: theme.elevation,
+          shadowColor: theme.shadowColor,
+          shadowRadius: theme.shadowRadius,
+        }}
+      >
+        <Stack justifyContent={"center"} w="60%">
+          <Input
+            style={{ backgroundColor: theme.inputBackgroundColor }}
+            placeholder="Search"
+            fontSize="xl"
+            placeholderTextColor={theme.inputColor}
+            w="95%"
+            h={10}
+            borderRadius="4"
+          
+            m={2}
+            InputRightElement={
+              <View
+                bg={"red.500"} // Cambia el fondo del InputRightElement aquí
+                justifyContent="center" // Centra verticalmente
+                alignItems="center" // Centra horizontalmente
+                roundedRight="4"
+                h={"100%"} // Opcional: para redondear la esquina derecha del fondo
+                p="2" // Opcional: para agregar relleno al fondo
+              >
+                <Icon
+                  size="6"
+                  color={theme.color}
+                  as={<MaterialIcons name="search" />}
+                />
+              </View>
             }
+          />
+        </Stack>
+        <IconButton
+          m={2}
+          onPress={() =>
+            navigation.navigate("Camera", {
+              animationTypeForReplace: "push",
+            })
+          }
+          colorScheme="red"
+          _icon={{
+            as: Ionicons,
+            size: "8",
+            color: theme.color,
+            name: "barcode-outline",
+          }}
+        />
+        {showButton && (
+          <IconButton
+            m={2}
+            onPress={handleClick}
             colorScheme="red"
             _icon={{
               as: Ionicons,
               size: "8",
-              color: "black",
-              name: "barcode-outline",
+              color: theme.color,
+              name: "close",
             }}
           />
-        </Heading>
+        )}
+      </Stack>
+      <Divider m={1} />
 
-        <Center>
-         
-          <View m="1">
-            <Input
-              placeholder="Search Items "
-              width="80%"
-              borderRadius="4"
-              py="3"
-              px="1"
-              fontSize="14"
-              InputLeftElement={
-                <Icon
-                  m="2"
-                  ml="3"
-                  size="6"
-                  color="black"
-                  as={<MaterialIcons name="search" />}
-                />
-              }
-              InputRightElement={
-                <Icon
-                  m="2"
-                  mr="3"
-                  size="6"
-                  color="black"
-                  as={<MaterialIcons name="mic" />}
-                />
-              }
-            />
-          </View>
-          <Divider m={1} />
-        </Center>
-{/* //contenido principal de items */}
-        <View h="80%" w="100%">
-        <Box id="Contenido" flex={1}>{
-Screen
- }</Box>     
-        </View>
-  {/* /////////////////////////////       */}
-        <View  bg="amber.500" w="100%" alignItems="center">
-            <Fab
-              onPress={onOpen}
-              h="20"
-              w="20"
-              
-              left="70%"
-              renderInPortal={false}
-              shadow={8}
-              bg="error.500"
-              bottom={50}
-              size="md"
-              icon={<Icon color="white" as={AntDesign} name="plus" size="5" />}
-            />
-
-            <Actionsheet isOpen={isOpen} onClose={onClose}>
-              <Actionsheet.Content>
-                <Box h={60} px={4} justifyContent="center">
-                  <Text
-                    fontSize="16"
-                    color="gray.500"
-                    _dark={{
-                      color: "gray.300",
-                    }}
-                  >
-                    Add
-                  </Text>
-                </Box>
-                <Actionsheet.Item
-                  onPress={() =>
-                    navigation.navigate("AddItem" )
-                  }
-                >
-                  Receive Items
-                </Actionsheet.Item>
-
-                <Actionsheet.Item
-                  onPress={() => { 
-                
-                    setSelected(1);
-                  }}
-                
-                >Organize Items</Actionsheet.Item>
-                <Actionsheet.Item>Prepare Items</Actionsheet.Item>
-              </Actionsheet.Content>
-            </Actionsheet>
-          </View>
-         
+      {/* //contenido principal de items */}
+      <View h="80%" w="100%">
+        <Box id="Contenido" flex={1}>
+          {ComponentesVista}
+        </Box>
       </View>
-    
-    );
+      {/* /////////////////////////////       */}
+    </Stack>
+  );
 }

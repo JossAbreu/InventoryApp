@@ -2,11 +2,10 @@ import React from 'react'
 import { Box, Text, Heading, VStack, FormControl, Input, Link, Button, HStack, Center, NativeBaseProvider } from "native-base";
 import { useNavigation } from '@react-navigation/native';
 import { ThemeContext } from '../../src/Styles/ThemeContext'
-import { Switch } from '@rneui/themed';
 export default function LoginScreen() {
 
   const navigation = useNavigation();
-  const { theme, FuntionchangeTheme,isDarkMode } = React.useContext(ThemeContext);
+  const { theme, } = React.useContext(ThemeContext);
   
 
 
@@ -36,7 +35,7 @@ export default function LoginScreen() {
           fontWeight="800"
           
         >
-          Inventory Managament prueba 2 t
+          Inventory Managament 
         </Heading>
         <Heading
           style={{color:theme.color}}
@@ -84,9 +83,7 @@ export default function LoginScreen() {
             </Heading>
           </FormControl>
 
-          <Switch value={isDarkMode} onValueChange={ FuntionchangeTheme}  mt="2" colorScheme="warmGray">
           
-          </Switch>
           <Button onPress={handlePress} mt="2" colorScheme="warmGray">
             Sign in
           </Button>
@@ -97,7 +94,7 @@ export default function LoginScreen() {
             <Heading
               fontSize="sm"
               style={{color:theme.color}}
-              
+              onPress={() => navigation.navigate("SignUp")}
             >
               Sign Up
             </Heading>

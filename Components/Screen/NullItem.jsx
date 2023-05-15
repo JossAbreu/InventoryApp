@@ -1,7 +1,9 @@
 import { Center,Box,Image ,Text,View} from 'native-base'
 import React from 'react'
-
+import { ThemeContext } from '../../src/Styles/ThemeContext'
+ 
 function NullItem() {
+  const { theme,} = React.useContext(ThemeContext);
   return (
    <Center>
 <Box justifyContent="center" h="80%" w="80%">
@@ -12,9 +14,9 @@ function NullItem() {
             h="80%"
             w="80%"
           >
-            <Center>
+            <Center style={{elevation:theme.elevation}}>
               <Image
-                shadow="2"
+                
                 source={require("../../assets/Image/box2.png")}
                 style={{ width: 200, height: 200 }}
               />
@@ -22,10 +24,10 @@ function NullItem() {
           </View>
         </Center>
         <Center>
-          <Text fontSize="lg" fontWeight="bold">
+          <Text style={{color:theme.color}} fontSize="lg" fontWeight="bold">
             It's empty here{" "}
           </Text>
-          <Text fontWeight="semibold">
+          <Text  style={{color:theme.color}} fontWeight="semibold">
             add your first item by tapping the{" "}
             <Text fontSize="lg" color="error.900">
               "+"
