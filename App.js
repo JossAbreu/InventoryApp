@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext,useState  } from "react";
 import { NativeBaseProvider, Button } from "native-base";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -15,11 +15,17 @@ import InventoryScreen from "./Components/Screen/InventoryScreen";
 import DispatchScreen from "./Components/Screen/DispatchScreen";
 import AddItemForm from "./Components/Screen/AddItems";
 import AccountScreen from "./Components/Screen/AccountScreen";
-
+import ReceiveScreen from "./Components/Screen/ReceiveScreen";
+import HadwareScreen from "./Components/Screen/HadwareScreen";
+import FabricScreen from "./Components/Screen/FabricScreen";
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
+
 function App() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
   return (
     <NativeBaseProvider>
       <ThemeProvider>
@@ -27,7 +33,18 @@ function App() {
           <Stack.Navigator
             screenOptions={{ headerShown: false, headerLeft: null }}
           >
-            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Login">
+              {(props) => (
+                <LoginScreen
+                  {...props}
+                  username={username}
+                  password={password}
+                  setUsername={setUsername}
+                  setPassword={setPassword}
+                />
+              )}
+            </Stack.Screen>
+
             <Stack.Screen name="SignUp" component={SingUpScreen} />
             <Stack.Screen name="Forgot" component={ForgotScreen} />
             <Stack.Screen
@@ -55,6 +72,8 @@ function App() {
                           : "text-box-search-outline";
                       } else if (route.name === "Dispatch") {
                         iconName = focused ? "truck-delivery" : "truck";
+                      } else if (route.name === "Receive") {
+                        iconName = focused ? "dolly" : "human-dolly";
                       }
 
                       return (
@@ -75,8 +94,8 @@ function App() {
                     },
                     tabBarStyle: {},
                     tabStyle: {
-                   borderRadius: 15,
-                    tabBarActiveBackgroundColor: "white",
+                      borderRadius: 15,
+                      tabBarActiveBackgroundColor: "white",
                     },
                   })}
                 >
@@ -146,13 +165,32 @@ function App() {
                       headerShown: false,
                     })}
                   />
+                  <Tab.Screen
+                    name="Receive"
+                    component={ReceiveScreen}
+                    options={({ navigation }) => ({
+                      headerShown: false,
+                    })}
+                  />
                 </Tab.Navigator>
               )}
             </Stack.Screen>
 
             <Stack.Screen name="Camera" component={CameraScreen} />
             <Stack.Screen name="AddItem" component={AddItemForm} />
-            <Stack.Screen name="Account" component={AccountScreen} />
+
+            <Stack.Screen name="Account" >
+              {(props) => (
+                <AccountScreen
+                  {...props}
+                  username={username}
+                  setUsername={setUsername}
+                  setPassword={setPassword}
+                />
+              )}
+            </Stack.Screen>
+            <Stack.Screen name="Hadware" component={HadwareScreen} />
+            <Stack.Screen name="Fabric" component={FabricScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </ThemeProvider>

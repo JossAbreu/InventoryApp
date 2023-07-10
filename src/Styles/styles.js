@@ -49,3 +49,11 @@ export const styles= StyleSheet.create({
 
 });
 
+export const StylesTables = StyleSheet.create({
+
+  head: { width: '100%', height: 40, alignItems: 'center', backgroundColor: '#808B97' },
+  text: { margin: 6, textAlign: 'center', alignItems: 'center' },
+  row: { flexDirection: 'row', backgroundColor: '#ffffff' },
+  btn: { width: 48, height: 20, backgroundColor: '#ff4141d1', borderRadius: 3 },
+  btnText: { textAlign: 'center', color: '#ffffff' }
+});

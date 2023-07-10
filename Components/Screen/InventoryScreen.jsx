@@ -1,14 +1,15 @@
-import * as React from "react";
-import { View, Text,Dimensions, ScrollViewBase } from "react-native";
+import React,{useState} from "react";
+import { View, Text,Dimensions, ScrollViewBase,StyleSheet } from "react-native";
 import { ThemeContext } from "../../src/Styles/ThemeContext";
-import { Header, Button, Stack, Center,Icon, Heading,Input, Divider, ScrollView } from "native-base";
+import { Header, Button, Stack, Center,Icon, Heading,Input, Divider, ScrollView,PresenceTransition } from "native-base";
 import { MaterialCommunityIcons,MaterialIcons } from "@expo/vector-icons";
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
-import {state} from '../../src/data/Data'
+import {dateItems} from '../../src/data/Data'
 export default function InventoryScreen({ navigation }) {
   const { theme } = React.useContext(ThemeContext);
+  
 
-  const { width, height } = Dimensions.get('window');
+  const { width, height } = Dimensions.get("window");
 
 
 
@@ -70,19 +71,62 @@ export default function InventoryScreen({ navigation }) {
             }
           />
           <Divider/>
-         <ScrollView  >
-          <Stack  flex={1} w="100%" p="18" justifyItems="center" alignItems="center" paddingTop="30">
-           
-  <Table s style={{ width: width * 0.9, }} borderStyle={{ borderWidth: 0.5, borderRadius:"20",  borderColor: 'black' }}>
-
-    <Row data={state.HeadTable} style={{ backgroundColor: 'gray', height: 50 }} textStyle={{  fontSize: width * 0.04, textAlign: 'center', margin: 5 }} />
-    <Rows data={state.DataTable} textStyle={{ fontSize: width * 0.03, textAlign: 'center' }} style={{ height: 30 }} />
+          <PresenceTransition visible={true} initial={{
+      opacity: 0,
     
-  </Table>
-  
+      translateY: 100
+    }} animate={{
+      opacity: 1,
+      translateY: 0,
+      transition: {
+        duration: 800
+      }
+    }}> 
+ 
+          <Stack  flex={1} w="100%" bg={"mute.100"} p="18" justifyItems="center" alignItems="center" paddingTop="30">
+         <ScrollView  >
+          <Stack flex={1} w="100%" bg={"blue.300"}>
+          <Table
+          style={{ width: width * 0.9 }}
+          borderStyle={{
+            borderWidth: 0.5,
+            borderRadius: 20,
+            borderColor: "black",
+          }}
+        >
+          <Row
+            data={dateItems.HeadTable}
+            style={{
+              backgroundColor: "gray",
+              height: 50,
+            }}
+            textStyle={{
+              
+              fontSize: width * 0.04,
+              textAlign: "center",
+              margin: 5,
+            }}
+          />
+          <Rows
+            data={dateItems.DataTable}
+            textStyle={{
+              fontSize: width * 0.03,
+              textAlign: "center",
+              color:theme.color,
+            }}
+            style={{ backgroundColor:theme.backgroundColor, height: 30 }}
+          />
+        </Table>
+    
+            
+          </Stack>
+           
+       
+        </ScrollView>
 </Stack>
-</ScrollView>
+</PresenceTransition> 
+</Stack>
       </Stack>
-    </Stack>
+  
   );
 }

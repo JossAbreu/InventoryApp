@@ -21,17 +21,18 @@ export default function DataItemScreen({ navigation, setCurrentView, ses }) {
     setCurrentView("item");
   };
  
+/*metodos para añadir filas y elminar*/
 
-  const addData = (newData) => {
-    const updatedDataTable = [...dataItems.DataTable, newData];
-    setDataItems({ ...dataItems, DataTable: updatedDataTable });
-  };
+  // const addData = (newData) => {
+  //   const updatedDataTable = [...dataItems.DataTable, newData];
+  //   setDataItems({ ...dataItems, DataTable: updatedDataTable });
+  // };
 
-  const removeData = (index) => {
-    const updatedDataTable = [...dataItems.DataTable];
-    updatedDataTable.splice(index, 1);
-    setDataItems({ ...dataItems, DataTable: updatedDataTable });
-  };
+  // const removeData = (index) => {
+  //   const updatedDataTable = [...dataItems.DataTable];
+  //   updatedDataTable.splice(index, 1);
+  //   setDataItems({ ...dataItems, DataTable: updatedDataTable });
+  // };
 
   const { width, height } = Dimensions.get("window");
   const { theme } = React.useContext(ThemeContext);
@@ -71,12 +72,7 @@ export default function DataItemScreen({ navigation, setCurrentView, ses }) {
         </Table>
       </Stack>
 
-      <Stack alignItems="center">
-        <Button bg="blue.500" w={20} m={3}  onPress={() => addData(["New Name", "Red", "10", "15,000"])}>
-          Add
-        </Button>
-        <Button bg="red.500" w={20} m={3} onPress={() => removeData(0)}>Remove</Button>
-      </Stack>
+     
     </ScrollView>
   );
 }

@@ -1,54 +1,136 @@
-import * as React from "react";
-import { View, Text } from "react-native";
-import { ThemeContext } from "../../src/Styles/ThemeContext";
-import { Header, Button, Stack, Center, Heading } from "native-base";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import React, { useState } from 'react';
+import { StyleSheet, View,  TouchableOpacity, Alert } from 'react-native';
+import { Table, TableWrapper, Row, Cell } from 'react-native-table-component';
+import { Center, Heading,FormControl, Stack,Input,Text, VStack,Box, Icon,Modal,Button,ScrollView, theme,IconButton, Divider } from 'native-base';
+import {state} from '../../src/data/Data'
 
-function DispatchScreen({navigation}) {
-  const { theme } = React.useContext(ThemeContext);
-  return (
-    <Stack flex={1} style={{ backgroundColor: theme.backgroundColor }}>
-      <Stack
-        h="20"
-        justifyContent="space-between"
-        alignItems="center"
-        direction="row"
-        p={5}
-        mt={8}
-        style={{ backgroundColor: theme.backgroundColor }}
-      >
-        <Heading style={{ color: theme.color }}>Dispatch</Heading>
-        <Button
-          p={0}
-          w={10}
-          h={10}
-          marginRight={0}
-          borderRadius={40}
-          bg="red.500"
-          color="white"
-          onPress={() => navigation.navigate("Account")}
-          rightIcon={
-            <MaterialCommunityIcons name="cog" size={30} color="white" />
+import { MaterialCommunityIcons,Ionicons } from "@expo/vector-icons";
+import {StylesTables} from '../../src/Styles/styles'
+
+
+
+
+function DispachScreen ({navigation}) {
+  const [showModal, setShowModal] = useState(false);
+
+
+
+
+
+
+const AlertButton = () => (
+  
+  <TouchableOpacity  onPress={() => setShowModal(true)}>
+    <Center > 
+      <View shadow={5} style={StylesTables.btn}>
+        <Text style={StylesTables.btnText}> Select </Text>
+      </View>
+    </Center>
+  </TouchableOpacity>
+);
+
+
+  
+
+    return (
+      <VStack  flex={1} p={5} pt={35}>
+        <Stack alignItems='center' >
+          <Box    m={4} p={1} h={10} w='100%'>
+            <Center alignItems="center" justifyContent='space-between'   h='100%' w='100%' flexDirection="row-reverse">
+            <IconButton
+        
+          onPress={() =>
+            navigation.navigate("Camera", {
+              animationTypeForReplace: "push",
+            })
           }
-        ></Button>
-      </Stack>
-      <Stack
-        style={{
-          flex: 1,
-          alignItems: "center",
-          justifyContent: "center",
-          backgroundColor: theme.backgroundColor,
-        }}
-      >
-        <Text
-          onPress={() => alert('Recuerda que eres suficiente 💸')}
-          style={{ fontSize: 36, fontWeight: "bold", color: theme.color }}
-        >
-     Estado emocional 😁
-        </Text>
-      </Stack>
-    </Stack>
-  );
-}
+          colorScheme="red"
+          _icon={{
+            as: Ionicons,
+            size: "8",
+            color: theme.color,
+            name: "barcode-outline",
+          }}
+        />
+        <Stack direction='row-reverse'>
+            <Icon size="lg" color="red.500" as={<MaterialCommunityIcons name='truck-fast-outline'/>}></Icon>
+           <Heading textAlign="center"  style={{color:theme.color}} fontSize="xl" >Dispach </Heading>
+           </Stack>
+           </Center>
+          </Box>
+        </Stack>
+        <Divider mb={1}/>
+        <Stack w="100%" bg="amber.500">
+          <Table >
+            <Row data={state.HeadTable} style={StylesTables.head} textStyle={StylesTables.text} />
+            {state.DataTable.map((rowData, rowIndex) => (
+              <TableWrapper key={rowIndex} style={StylesTables.row}>
+                {rowData.map((cellData, cellIndex) => (
+                  <Cell
+                    key={cellIndex}
+                    data={cellIndex === 4? (
+                      <AlertButton  />
+                    ) : (
+                      cellData
+                    )}
+                    textStyle={StylesTables.text}
+                  />
+                ))}
+              </TableWrapper>
+            ))}
+          </Table>
+        </Stack>
 
-export default DispatchScreen;
+
+        <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
+        <Modal.Content maxWidth="400px">
+          <Modal.CloseButton />
+          <Modal.Header>Contact Us</Modal.Header>
+          <Modal.Body>
+            <FormControl>
+              <FormControl.Label>Name</FormControl.Label>
+              <Input />
+            </FormControl>
+            <FormControl mt="3">
+              <FormControl.Label>Email</FormControl.Label>
+              <Input />
+            </FormControl>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button.Group space={2}>
+              <Button variant="ghost" colorScheme="blueGray" onPress={() => {
+              setShowModal(false);
+            }}>
+                Cancel
+              </Button>
+              <Button onPress={() => {
+              setShowModal(false);
+            }}>
+                Save
+              </Button>
+            </Button.Group>
+          </Modal.Footer>
+        </Modal.Content>
+      </Modal>
+
+      </VStack>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    );
+  }
+
+
+
+export default DispachScreen;

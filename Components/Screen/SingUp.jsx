@@ -1,8 +1,8 @@
 import * as React from "react";
-import { Box, Heading, VStack, FormControl, Input, Button, Center, View,NativeBaseProvider } from "native-base";
+import { Box, Heading, VStack, FormControl, Input, Button, Center,PresenceTransition, View,NativeBaseProvider } from "native-base";
 import {useThemeContext} from '../../src/Styles/ThemeContext'
 import { ThemeContext } from '../../src/Styles/ThemeContext'
-
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 function SingUpScreen  () {
 
@@ -10,12 +10,26 @@ function SingUpScreen  () {
   const { theme, } = React.useContext(ThemeContext);
 
   return (
+    <KeyboardAwareScrollView contentContainerStyle={{ flexGrow: 1 }}>
+     
     <Center
       style={{ backgroundColor: theme.backgroundColor }}
-      flex={1}
+      
+      h='100%'
       px="3"
       w="100%"
     >
+      <PresenceTransition visible={true} initial={{
+      opacity: 0,
+    
+      translateY: 100
+    }} animate={{
+      opacity: 1,
+      translateY: 0,
+      transition: {
+        duration: 800
+      }
+    }}>
       <Box justifyContent="center" safeArea p="2" w="90%" maxW="290" py="8">
         <Heading
           textAlign="center"
@@ -40,6 +54,7 @@ function SingUpScreen  () {
               Email
             </Heading>
             <Input
+               borderRadius={15}
               fontSize={"xl"}
               style={{
                 backgroundColor: theme.inputBackgroundColor,
@@ -58,6 +73,7 @@ function SingUpScreen  () {
                 color: theme,
               }}
               type="password"
+              borderRadius={15}
             />
           </FormControl>
           <FormControl>
@@ -71,6 +87,7 @@ function SingUpScreen  () {
                 color: theme,
               }}
               type="password"
+              borderRadius={15}
             />
           </FormControl>
           <Button mt="2" colorScheme="warmGray">
@@ -78,7 +95,10 @@ function SingUpScreen  () {
           </Button>
         </VStack>
       </Box>
+      </PresenceTransition>
     </Center>
+   
+    </KeyboardAwareScrollView>
   );
 };
 

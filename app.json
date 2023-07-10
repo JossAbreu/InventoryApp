@@ -23,7 +23,11 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "Esta aplicación necesita acceso a la cámara para funcionar correctamente.",
+        "NSMicrophoneUsageDescription": "Esta aplicación necesita acceso al micrófono para funcionar correctamente."
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -31,13 +35,12 @@
         "backgroundColor": "#ffffff"
       },
       "permissions": [
-        "CAMERA"
+        "CAMERA",
+        "FLASHLIGHT"
       ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
     }
-   
-    
   }
 }

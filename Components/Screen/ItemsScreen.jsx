@@ -17,6 +17,8 @@ import {
   onClose,
   useDisclose,
   Stack,
+  Heading,
+  PresenceTransition,
 } from "native-base";
 import { Items } from "../../src/data/Data";
 import {
@@ -35,13 +37,25 @@ const Item = ({ title, description, setVista, setShowButton }) => {
   };
 
   return (
+    <PresenceTransition visible={true} initial={{
+      opacity: 0,
+    
+      translateY: 100
+    }} animate={{
+      opacity: 1,
+      translateY: 0,
+      transition: {
+        duration: 400
+      }
+    }}> 
+
     <TouchableOpacity onPress={handleClick}>
       <Stack p={4} direction="row" w="100%">
-        <Box h={20}       shadow={1} w="30%" mb={1} bg="gray.400" p={4} borderLeftRadius={10}>
+        <Box h={20}shadow={1} w="30%" mb={1} bg="gray.400" p={4} borderLeftRadius={10}>
           <Center>
             <Icon
               size={12}
-              color="#000000.500"
+              color="black"
               as={<MaterialCommunityIcons name="view-list" />}
             />
           </Center>
@@ -49,18 +63,18 @@ const Item = ({ title, description, setVista, setShowButton }) => {
         <Box
           h={20}
           w="70%"
-          mb={1}
-    
           p={4}
           bg="gray.100"
           borderRadius={2}
+          justifyContent="center"
+          alignItems="center"
+          textAlign="center"
         >
-          <Center>
-            <Text style={stylesx.title}>{title}</Text>
-          </Center>
+            <Heading fontSize="2xl">{title}</Heading>
         </Box>
       </Stack>
     </TouchableOpacity>
+    </PresenceTransition> 
   );
 };
 
@@ -90,14 +104,14 @@ const ItemScreen = ({ setVista, setShowButton }) => {
       <View bg="amber.500" w="100%" alignItems="center">
         <Fab
           onPress={onOpen}
-          h="20"
-          w="20"
+          h="16"
+          w="16"
           left="70%"
           renderInPortal={false}
-          shadow={8}
+          shadow={3}
           bg="error.500"
           bottom={50}
-          size="md"
+          size="sm"
           icon={<Icon color="white" as={AntDesign} name="plus" size="5" />}
         />
 
@@ -133,15 +147,6 @@ const ItemScreen = ({ setVista, setShowButton }) => {
   );
 };
 
-const stylesx = StyleSheet.create({
-  title: {
-    fontSize: 22,
-    fontWeight: "bold",
-    marginTop: 8,
-  },
-  description: {
-    fontSize: 16,
-  },
-});
+
 
 export default ItemScreen;

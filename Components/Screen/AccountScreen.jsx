@@ -1,15 +1,27 @@
 import { Heading,Box,Icon, Flex,Divider,Image,AspectRatio,Center, VStack, Stack } from 'native-base';
 import * as React from 'react';
-import { View, Text, TouchableOpacity, TouchableOpacityBase, TouchableHighlight } from 'react-native';
+import {  TouchableOpacity,  } from 'react-native';
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation,useRoute  } from '@react-navigation/native';
 import { ThemeContext } from '../../src/Styles/ThemeContext'
 import { Switch } from '@rneui/themed';
 
-export default function AccountScreen({  }) {
+
+export default function AccountScreen(props) {
+
+  //variables 
   const { theme, FuntionchangeTheme,isDarkMode,themeText } = React.useContext(ThemeContext);
   
 
+  const { username,setUsername,setPassword } = props;
+
+
+function close (){
+  
+  navigation.navigate("Login")
+  setUsername('');
+  setPassword('');
+}
 
   const navigation = useNavigation();
     return (
@@ -39,7 +51,7 @@ export default function AccountScreen({  }) {
           
 
            
-              <Heading style={{color:theme.color}}  fontSize="xl">My Account</Heading>
+              <Heading mt={2} style={{color:theme.color}}  fontSize="xl">User  {username}</Heading>
               </Center>
             </Box>
             
@@ -177,7 +189,7 @@ export default function AccountScreen({  }) {
             bg="gray.400"
             shadow={2}
           >
-            <TouchableOpacity   onPress={() => navigation.navigate("Login")}>
+            <TouchableOpacity   onPress={close }>
             <Box  direction="row" w="200px" h="40px">
               <Flex mt={1} ml={3} direction="row" alignItems="center">
                 <Icon

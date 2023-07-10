@@ -11,9 +11,7 @@ import {
   Icon,
   Box,
   Button,
-  VStack,
-  Spacer,
-  ZStack,
+  PresenceTransition,
   Divider,
   Stack,
 } from "native-base";
@@ -115,6 +113,7 @@ export default function ItemsScreen({ navigation }) {
       <Stack
         flexDirection={"row-reverse"}
         w="100%"
+        mb={2}
         h="5%"
         justifyContent={"center"}
         style={{
@@ -132,7 +131,6 @@ export default function ItemsScreen({ navigation }) {
             w="95%"
             h={10}
             borderRadius="4"
-          
             m={2}
             InputRightElement={
               <View
@@ -185,9 +183,13 @@ export default function ItemsScreen({ navigation }) {
 
       {/* //contenido principal de items */}
       <View h="80%" w="100%">
-        <Box id="Contenido" flex={1}>
+     
+        <Box  h='100%' id="Contenido"  >
+   
           {ComponentesVista}
+         
         </Box>
+     
       </View>
       {/* /////////////////////////////       */}
     </Stack>
